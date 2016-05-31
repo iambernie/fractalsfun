@@ -1,0 +1,24 @@
+language: python
+
+python:
+    - "2.7"
+    - "3.3"
+    - "3.4"
+
+before_install:
+    - sudo apt-get update
+#    - sudo apt-get install python-matplotlib
+
+# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install:
+    - pip install numpy
+
+#before_script:
+#    - chmod +x do_nothing.sh
+
+# # command to run tests, e.g. python setup.py test
+script:
+    - "python setup.py test"
+
+notifications:
+  email: false
