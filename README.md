@@ -1,4 +1,4 @@
-Fractalsfun
+fractalsfun
 ===========
 
 master: [![Build Status](https://api.travis-ci.org/iambernie/fractalsfun.svg?branch=master)](https://travis-ci.org/iambernie/fractalsfun)
