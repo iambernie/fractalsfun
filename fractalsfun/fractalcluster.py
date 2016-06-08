@@ -13,21 +13,19 @@ Cartwright & Whitworth (2004):
    from 2) have a child node.
 
 4) repeat steps 1,2,3 for the child nodes, until the system is
-   sufficiently large. (Keep in mind that you will lose nodes after
-   you impose a spherical envelope)
-
+   sufficiently large.
 """
+
 import numpy
 
 class FractalCluster(object):
-    def __init__(self, nstars, fdim, ndiv=2, dim=3, spherical=False):
+    def __init__(self, nstars, fdim, ndiv=2, dim=3):
         self.nstars = nstars
         self.fdim = fdim
         self.ndiv = ndiv
         self.dim = dim
         self.nsubs = ndiv**dim
         self.probability = ndiv**(fdim-dim)
-        self.spherical = spherical
         self.mkfractal()
         self.positions = self.get_positions()
 
@@ -98,18 +96,11 @@ class FractalCluster(object):
 
         pos = numpy.array([node_to_point(n, centers) for n in self.nodes])*2
 
-        if self.spherical:
-            pos = self.impose_sphere(pos)
-
         #Take a subset from points
         selection = numpy.random.choice(len(pos), size=self.nstars)
         pos = pos.take(selection, axis=0)
         return pos
 
-    def impose_sphere(self, positions):
-        mask = numpy.apply_along_axis(in_nsphere, 1, positions)
-        pos_spherical = positions[mask]
-        return pos_spherical
 
     def get_centers(self, side):
         """
@@ -155,9 +146,6 @@ class FractalCluster(object):
             indices.append(q)
             nr = rem
         return indices
-
-def in_nsphere(a):
-    return sum(a**2) < 1.0
 
 class Node(object):
     def __init__(self, parent, value):
