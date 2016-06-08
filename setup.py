@@ -13,8 +13,10 @@ class CleanCommand(Command):
         pass
 
     def run(self):
-        os.system('rm -vrf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info \
-                  ./fractalsfun/__pycache__')
+        os.system('rm -vrf ./build ./dist ./*.tgz ./*.egg-info')
+
+        os.system('find . -name "*.pyc" -delete')
+        os.system('find . -type d -name "__pycache__" -delete')
 
 class TestCommand(Command):
     description = "run all tests"
